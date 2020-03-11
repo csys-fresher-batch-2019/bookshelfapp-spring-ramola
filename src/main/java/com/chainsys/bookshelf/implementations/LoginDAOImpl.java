@@ -40,7 +40,6 @@ public class LoginDAOImpl implements LoginDAO {
 	}
 
 	public String userLoginValidation(String eMail, String password) throws Exception {
-		// TODO Auto-generated method stub
 		String query = "select email,password from login where email=? and password=?";
 		String s = null;
 

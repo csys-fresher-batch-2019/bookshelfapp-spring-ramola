@@ -22,10 +22,10 @@ public interface BooksDAO {
 
 	List<Books> extractRelatedBooks(String bookName) throws Exception;
 
-	public void addBook(Books ab) throws Exception;
+	public int addBook(Books ab) throws Exception;
 
 	public void updateBookLanguage(Books ab) throws Exception;
 
-	public void deleteBook(Books ab) throws Exception;
+	public int deleteBook(Books ab) throws Exception;
 
 }

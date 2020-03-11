@@ -17,6 +17,8 @@ import com.chainsys.bookshelf.model.Login;
 
 public class login extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Login l1 = new Login();
@@ -34,7 +36,7 @@ public class login extends HttpServlet {
 			loginMessage = li.userLoginValidation(l1.geteMail(), l1.getPassword());
 			System.out.println(loginMessage);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		if (loginMessage.equals("success")) {

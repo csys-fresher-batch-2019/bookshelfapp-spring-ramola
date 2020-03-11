@@ -17,8 +17,8 @@ public class Books {
 		return bookName;
 	}
 
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
+	public String setBookName(String bookName) {
+		return this.bookName = bookName;
 	}
 
 	public int getBookVersion() {
@@ -33,24 +33,24 @@ public class Books {
 		return bookAuthor;
 	}
 
-	public void setBookAuthor(String bookAuthor) {
-		this.bookAuthor = bookAuthor;
+	public String setBookAuthor(String bookAuthor) {
+		return this.bookAuthor = bookAuthor;
 	}
 
 	public String getBookLanguage() {
 		return bookLanguage;
 	}
 
-	public void setBookLanguage(String bookLanguage) {
-		this.bookLanguage = bookLanguage;
+	public String setBookLanguage(String bookLanguage) {
+		return this.bookLanguage = bookLanguage;
 	}
 
 	public String getBookType() {
 		return bookType;
 	}
 
-	public void setBookType(String bookType) {
-		this.bookType = bookType;
+	public String setBookType(String bookType) {
+		return this.bookType = bookType;
 	}
 
 	public Date getBookUploadedOn() {

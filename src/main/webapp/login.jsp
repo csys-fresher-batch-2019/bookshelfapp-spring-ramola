@@ -91,20 +91,18 @@ img {
 				<h2>Sign In</h2>
 				Enter E-mail : <input type="email"
 					pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" name="e1"
-					placeholder="Enter E-mail" required autofocus /></br>
-				</br> Enter the password : <input type="password" name="p1"
-					placeholder="Enter your password" required /></br>
-				</br>
+					placeholder="Enter E-mail" required autofocus /><br> <br>
+				Enter the password : <input type="password" name="p1"
+					placeholder="Enter your password" required /></br> <br>
 
 				<button class="button" style="vertical-align: middle">
 					<span> Login</span>
 				</button>
-				</br>
+				<br>
 				<div class="left">
 					<a href="Registration.jsp">New User?</a>
 					</center>
-					</br>
-					</br>
+					<br> <br>
 				</div>
 			</div>
 	</div>

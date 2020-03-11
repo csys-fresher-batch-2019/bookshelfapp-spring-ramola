@@ -29,8 +29,8 @@ public class Login {
 		return eMail;
 	}
 
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
+	public String seteMail(String eMail) {
+		return this.eMail = eMail;
 	}
 
 	public Long getPhoneNo() {
@@ -53,8 +53,8 @@ public class Login {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String setPassword(String password) {
+		return this.password = password;
 	}
 
 	@Override

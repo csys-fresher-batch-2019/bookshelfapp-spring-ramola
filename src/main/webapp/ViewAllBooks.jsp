@@ -51,7 +51,8 @@
 						Author :
 						<%=b.getBookAuthor()%><br>Version :
 						<%=b.getBookVersion()%>
-						<br> Language :<%=b.getBookLanguage()%><br> Publisher :<%=b.getBookPublisher()%><br>
+						<br> Language :<%=b.getBookLanguage()%><br> Publisher :<%=b.getBookPublisher()%><br>Book
+						Id :<%=b.getBookId()%>
 						<br>
 				</div>
 			</div>
