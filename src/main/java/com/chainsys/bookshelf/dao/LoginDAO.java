@@ -1,11 +1,12 @@
 package com.chainsys.bookshelf.dao;
 
-import com.chainsys.bookshelf.model.Login;
+import com.chainsys.bookshelf.exception.DBException;
+import com.chainsys.bookshelf.model.User;
 
 public interface LoginDAO {
-	public int newLogin(Login ab) throws Exception;
+	public int saveUser(User ab) throws DBException;
 
-	public String userLoginValidation(String eMail, String password) throws Exception;
+	public String userLogin(String email, String password) throws DBException;
 
-	public Login getUserDetails(String email) throws Exception;
+	public User getUserDetails(String email) throws DBException;
 }

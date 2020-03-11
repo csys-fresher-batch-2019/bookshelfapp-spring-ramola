@@ -12,19 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.bookshelf.implementations.BooksDAOImpl;
-import com.chainsys.bookshelf.model.Books;
+import com.chainsys.bookshelf.model.Book;
 
 @WebServlet("/LanguageSpecificBooks")
 public class LanguageSpecificBooks extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 		PrintWriter out = response.getWriter();
 		String bookLanguage = request.getParameter("bookLanguage");
 		try {
-			l = bl.extractLanguageSpecificBooks(bookLanguage);
+			l = bl.findByLanguage(bookLanguage);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -33,7 +35,7 @@ public class LanguageSpecificBooks extends HttpServlet {
 		out.print("<center><h2><u>Language Specific Books</u></h2></center></br>");
 		out.print("<center><table border='1'><tr><th>Books</th><th>Book Details</th><tr>");
 
-		for (Books b : l) {
+		for (Book b : l) {
 
 			out.print("<tr><td><img src=assets/images/" + b.getImgLink()
 					+ " height='290' width='190'></td><td>Book Name  : " + toUpp(b.getBookName())

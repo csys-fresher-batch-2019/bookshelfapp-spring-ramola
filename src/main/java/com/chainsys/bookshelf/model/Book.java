@@ -1,8 +1,9 @@
 package com.chainsys.bookshelf.model;
 
-import java.sql.Date;
 
-public class Books {
+import java.time.LocalDate;
+
+public class Book {
 	private int bookId;
 
 	public int getBookId() {
@@ -53,11 +54,11 @@ public class Books {
 		return this.bookType = bookType;
 	}
 
-	public Date getBookUploadedOn() {
+	public LocalDate getBookUploadedOn() {
 		return bookUploadedOn;
 	}
 
-	public void setBookUploadedOn(Date bookUploadedOn) {
+	public void setBookUploadedOn(LocalDate bookUploadedOn) {
 		this.bookUploadedOn = bookUploadedOn;
 	}
 
@@ -77,11 +78,11 @@ public class Books {
 		this.bookPublisher = bookPublisher;
 	}
 
-	public Date getBookPublishedDate() {
+	public LocalDate getBookPublishedDate() {
 		return bookPublishedDate;
 	}
 
-	public void setBookPublishedDate(Date bookPublishedDate) {
+	public void setBookPublishedDate(LocalDate bookPublishedDate) {
 		this.bookPublishedDate = bookPublishedDate;
 	}
 
@@ -106,10 +107,10 @@ public class Books {
 	private String bookAuthor;
 	private String bookLanguage;
 	private String bookType;
-	private Date bookUploadedOn;
+	private LocalDate bookUploadedOn;
 	private int bookRating;
 	private String bookPublisher;
-	private Date bookPublishedDate;
+	private LocalDate bookPublishedDate;
 	private String imgLink;
 	private String bookLink;
 

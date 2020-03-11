@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chainsys.bookshelf.dto.MessageDTO;
 import com.chainsys.bookshelf.implementations.BooksDAOImpl;
 import com.chainsys.bookshelf.implementations.LoginDAOImpl;
-import com.chainsys.bookshelf.model.Books;
-import com.chainsys.bookshelf.model.Login;
+import com.chainsys.bookshelf.model.Book;
+import com.chainsys.bookshelf.model.User;
 
 @RestController
 @RequestMapping("api")
@@ -22,7 +22,7 @@ public class ProductController {
 			@RequestParam("pno") long phoneNo, @RequestParam("ptype") String preType,
 			@RequestParam("password") String password) throws Exception {
 		MessageDTO msg = new MessageDTO();
-		Login l1 = new Login();
+		User l1 = new User();
 
 		l1.setUserName(uName);
 		l1.seteMail(eMail);
@@ -31,7 +31,7 @@ public class ProductController {
 		l1.setPassword(password);
 
 		LoginDAOImpl li = new LoginDAOImpl();
-		int a = li.newLogin(l1);
+		int a = li.saveUser(l1);
 		if (a == 1) {
 			msg.setInfoMessage("Successfully registered");
 		} else {
@@ -45,13 +45,13 @@ public class ProductController {
 	public MessageDTO login(@RequestParam("email") String eMail, @RequestParam("password") String password)
 			throws Exception {
 		MessageDTO msg = new MessageDTO();
-		Login l1 = new Login();
+		User l1 = new User();
 
 		String email = l1.seteMail(eMail);
 		String pwd = l1.setPassword(password);
 
 		LoginDAOImpl li = new LoginDAOImpl();
-		String a = li.userLoginValidation(email, pwd);
+		String a = li.userLogin(email, pwd);
 		if (a.equals("success") || a.equals("admin")) {
 			msg.setInfoMessage("Logged in Successful");
 		} else {
@@ -62,9 +62,9 @@ public class ProductController {
 	}
 
 	@GetMapping("/viewbooks")
-	public List<Books> viewbooks() throws Exception {
+	public List<Book> viewbooks() throws Exception {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 
 		l = bl.viewAllBooks();
 
@@ -73,70 +73,70 @@ public class ProductController {
 	}
 
 	@GetMapping("/ExtractAuthorSpecificBooks")
-	public List<Books> AuthorSpecificBooks(@RequestParam("author") String bookAuthor) throws Exception {
+	public List<Book> AuthorSpecificBooks(@RequestParam("author") String bookAuthor) throws Exception {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
-		Books b = new Books();
+		List<Book> l = new ArrayList<Book>();
+		Book b = new Book();
 		String author = b.setBookAuthor(bookAuthor);
-		l = bl.extractAuthorSpecificBooks(author);
+		l = bl.findByAuthor(author);
 
 		return l;
 
 	}
 
 	@GetMapping("/ExtractTypeSpecificBooks")
-	public List<Books> TypeSpecificBooks(@RequestParam("type") String bookType) throws Exception {
+	public List<Book> TypeSpecificBooks(@RequestParam("type") String bookType) throws Exception {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
-		Books b = new Books();
+		List<Book> l = new ArrayList<Book>();
+		Book b = new Book();
 		String type = b.setBookType(bookType);
-		l = bl.extractTypeSpecificBooks(type);
+		l = bl.findByBookType(type);
 
 		return l;
 
 	}
 
 	@GetMapping("/ExtractLanguageSpecificBooks")
-	public List<Books> LanguageSpecificBooks(@RequestParam("language") String bookLanguage) throws Exception {
+	public List<Book> LanguageSpecificBooks(@RequestParam("language") String bookLanguage) throws Exception {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
-		Books b = new Books();
+		List<Book> l = new ArrayList<Book>();
+		Book b = new Book();
 		String language = b.setBookLanguage(bookLanguage);
-		l = bl.extractLanguageSpecificBooks(language);
+		l = bl.findByLanguage(language);
 
 		return l;
 
 	}
 
 	@GetMapping("/ExtractRelatedBooks")
-	public List<Books> ExtractRelatedBooks(@RequestParam("name") String bookName) throws Exception {
+	public List<Book> ExtractRelatedBooks(@RequestParam("name") String bookName) throws Exception {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
-		Books b = new Books();
+		List<Book> l = new ArrayList<Book>();
+		Book b = new Book();
 		String name = b.setBookName(bookName);
-		l = bl.extractRelatedBooks(name);
+		l = bl.findRelatedBookName(name);
 
 		return l;
 
 	}
 
 	@GetMapping("/viewHighlyRatedBooks")
-	public List<Books> viewHighlyRatedBooks() throws Exception {
+	public List<Book> viewHighlyRatedBooks() throws Exception {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 
-		l = bl.extractHighlyRatedBooks();
+		l = bl.findHighlyRatedBooks();
 
 		return l;
 
 	}
 
 	@GetMapping("/viewTodaysSpecial")
-	public List<Books> viewTodaysSpecial() throws Exception {
+	public List<Book> viewTodaysSpecial() throws Exception {
 		BooksDAOImpl bl = new BooksDAOImpl();
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 
-		l = bl.extractTodaysSpecial();
+		l = bl.findTodaysSpecial();
 
 		return l;
 	}

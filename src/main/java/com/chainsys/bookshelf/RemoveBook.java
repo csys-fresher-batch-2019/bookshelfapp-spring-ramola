@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.bookshelf.implementations.BooksDAOImpl;
-import com.chainsys.bookshelf.model.Books;
+import com.chainsys.bookshelf.model.Book;
 
 @WebServlet("/RemoveBook")
 
@@ -20,26 +20,23 @@ public class RemoveBook extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Books b1 = new Books();
+		Book b1 = new Book();
 		PrintWriter out = response.getWriter();
 		BooksDAOImpl bi = new BooksDAOImpl();
 		b1.setBookId(Integer.parseInt(request.getParameter("bookId")));
-		int msg=0;
+		int msg = 0;
 		try {
 			System.out.println(msg);
 			System.out.println(b1);
-			msg=bi.deleteBook(b1);
-			if (msg==1)
-			{
+			msg = bi.deleteBook(b1);
+			if (msg == 1) {
 				out.print("Book Successfully Deleted");
-			}
-			else
-			{
+			} else {
 				out.print("Book Not Found");
-				
+
 			}
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 	}

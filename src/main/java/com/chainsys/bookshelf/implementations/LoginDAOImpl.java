@@ -8,17 +8,17 @@ import org.slf4j.LoggerFactory;
 
 import com.chainsys.bookshelf.controller.IndexController;
 import com.chainsys.bookshelf.dao.LoginDAO;
-import com.chainsys.bookshelf.db.DbConnection;
+import com.chainsys.bookshelf.util.DbConnection;
 import com.chainsys.bookshelf.exception.DBException;
 import com.chainsys.bookshelf.exception.ErrorConstant;
-import com.chainsys.bookshelf.model.Login;
+import com.chainsys.bookshelf.model.User;
 
 public class LoginDAOImpl implements LoginDAO {
 
 	// private static final Logger log=Logger.getInstance();
 	private static final org.slf4j.Logger log = LoggerFactory.getLogger(IndexController.class);
 
-	public int newLogin(Login ab) throws Exception {
+	public int saveUser(User ab) throws DBException {
 		int rows = 0;
 		String query = "insert into login(login_no,user_name,email,phone_no,preference_type,password)values (login_sqc.nextval,?,?,?,?,?)";
 
@@ -39,7 +39,7 @@ public class LoginDAOImpl implements LoginDAO {
 		return rows;
 	}
 
-	public String userLoginValidation(String eMail, String password) throws Exception {
+	public String userLogin(String email, String password) throws DBException {
 		String query = "select email,password from login where email=? and password=?";
 		String s = null;
 
@@ -47,11 +47,11 @@ public class LoginDAOImpl implements LoginDAO {
 
 		{
 
-			pst.setString(1, eMail);
+			pst.setString(1, email);
 			pst.setString(2, password);
-			System.out.println(eMail);
+			System.out.println(email);
 			System.out.println(password);
-			if (eMail.equals("admin@gmail.com") && password.equals("admin")) {
+			if (email.equals("admin@gmail.com") && password.equals("admin")) {
 				s = "admin";
 			} else {
 				try (ResultSet rs = pst.executeQuery();) {
@@ -80,9 +80,9 @@ public class LoginDAOImpl implements LoginDAO {
 	}
 
 	@Override
-	public Login getUserDetails(String email) throws Exception {
+	public User getUserDetails(String email) throws DBException {
 		String query = "select * from login where email=? ";
-		Login l = new Login();
+		User l = new User();
 
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query);)
 

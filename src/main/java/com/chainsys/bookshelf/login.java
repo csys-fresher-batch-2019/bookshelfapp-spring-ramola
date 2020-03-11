@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.chainsys.bookshelf.implementations.LoginDAOImpl;
-import com.chainsys.bookshelf.model.Login;
+import com.chainsys.bookshelf.model.User;
 
 @WebServlet("/login")
 
@@ -21,7 +21,7 @@ public class login extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Login l1 = new Login();
+		User l1 = new User();
 		l1.seteMail(request.getParameter("e1"));
 		l1.setPassword(request.getParameter("p1"));
 
@@ -33,7 +33,7 @@ public class login extends HttpServlet {
 		String loginMessage = "false";
 
 		try {
-			loginMessage = li.userLoginValidation(l1.geteMail(), l1.getPassword());
+			loginMessage = li.userLogin(l1.geteMail(), l1.getPassword());
 			System.out.println(loginMessage);
 		} catch (Exception e) {
 
@@ -42,7 +42,7 @@ public class login extends HttpServlet {
 		if (loginMessage.equals("success")) {
 			session.setAttribute("semail", l1.geteMail());
 			LoginDAOImpl ld = new LoginDAOImpl();
-			Login l = new Login();
+			User l = new User();
 			try {
 				l = ld.getUserDetails(l1.geteMail());
 				session.setAttribute("preference", l.getPreferenceType());

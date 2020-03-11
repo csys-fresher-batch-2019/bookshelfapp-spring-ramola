@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.chainsys.bookshelf.implementations.BooksDAOImpl"%>
-<%@page import="com.chainsys.bookshelf.model.Books"%>
+<%@page import="com.chainsys.bookshelf.model.Book"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.io.PrintWriter"%>
@@ -34,11 +34,11 @@
 
 		<%
 			BooksDAOImpl bl = new BooksDAOImpl();
-			List<Books> l = new ArrayList<Books>();
+			List<Book> l = new ArrayList<Book>();
 			String bookName = request.getParameter("bookName");
-			l = bl.extractRelatedBooks(bookName);
+			l = bl.findRelatedBookName(bookName);
 			if (l.size() != 0) {
-				for (Books b : l) {
+				for (Book b : l) {
 		%>
 		<div class='left'>
 			<div class="card-desk">

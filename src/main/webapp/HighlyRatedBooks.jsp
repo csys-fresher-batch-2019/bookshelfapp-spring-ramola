@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.chainsys.bookshelf.implementations.BooksDAOImpl"%>
-<%@page import="com.chainsys.bookshelf.model.Books"%>
+<%@page import="com.chainsys.bookshelf.model.Book"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -33,11 +33,11 @@
 	<form action="HighlyRatedBooks">
 		<%
 			BooksDAOImpl bd = new BooksDAOImpl();
-			List<Books> l = new ArrayList<Books>();
-			l = bd.extractHighlyRatedBooks();
+			List<Book> l = new ArrayList<Book>();
+			l = bd.findHighlyRatedBooks();
 			out.print("<center><table border='1'><tr><th>Books</th><th>Book Details</th><tr>");
 
-			for (Books b : l) {
+			for (Book b : l) {
 				out.print("<tr><td><img src=assets/images/" + b.getImgLink()
 						+ " height='290' width='190'></td><td>Book Name  : " + toUpp(b.getBookName())
 						+ " </br> Book Version  :" + b.getBookVersion() + "</br>Book Author  : "

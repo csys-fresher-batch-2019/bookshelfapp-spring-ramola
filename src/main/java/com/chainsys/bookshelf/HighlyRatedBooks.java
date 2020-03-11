@@ -11,21 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.bookshelf.implementations.BooksDAOImpl;
-import com.chainsys.bookshelf.model.Books;
+import com.chainsys.bookshelf.model.Book;
 
 @WebServlet("/HighlyRatedBooks")
 public class HighlyRatedBooks extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		BooksDAOImpl bl = new BooksDAOImpl();
 		// PrintWriter out=response.getWriter();
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 		try {
-			l = bl.extractHighlyRatedBooks();
+			l = bl.findHighlyRatedBooks();
 
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}
 	}

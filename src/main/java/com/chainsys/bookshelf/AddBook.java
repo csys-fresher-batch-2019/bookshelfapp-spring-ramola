@@ -1,8 +1,9 @@
+
 package com.chainsys.bookshelf;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.bookshelf.implementations.BooksDAOImpl;
-import com.chainsys.bookshelf.model.Books;
+import com.chainsys.bookshelf.model.Book;
 
 @WebServlet("/AddBook")
 public class AddBook extends HttpServlet {
@@ -21,17 +22,17 @@ public class AddBook extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Books b1 = new Books();
+		Book b1 = new Book();
 		PrintWriter out = response.getWriter();
 		BooksDAOImpl bi = new BooksDAOImpl();
-		b1.setBookName(request.getParameter("bookName"));
-		b1.setBookVersion(Integer.parseInt(request.getParameter("bookVersion")));
-		b1.setBookAuthor(request.getParameter("bookAuthor"));
-		b1.setBookLanguage(request.getParameter("bookLanguage"));
-		b1.setBookType(request.getParameter("bookType"));
-		b1.setBookPublisher(request.getParameter("bookPublisher"));
-		b1.setBookPublishedDate(Date.valueOf(request.getParameter("bookPublishedDate")));
-		String link = splitUrl(request.getParameter("bookLink"));
+		b1.setBookName(request.getParameter("BooksName"));
+		b1.setBookVersion(Integer.parseInt(request.getParameter("BooksVersion")));
+		b1.setBookAuthor(request.getParameter("BooksAuthor"));
+		b1.setBookLanguage(request.getParameter("BooksLanguage"));
+		b1.setBookType(request.getParameter("BooksType"));
+		b1.setBookPublisher(request.getParameter("BooksPublisher"));
+		b1.setBookPublishedDate(LocalDate.parse(request.getParameter("BooksPublishedDate")));
+		String link = splitUrl(request.getParameter("BooksLink"));
 		b1.setBookLink(link);
 		String link1 = splitUrl(request.getParameter("imgLink"));
 		b1.setImgLink(link1);
@@ -40,14 +41,14 @@ public class AddBook extends HttpServlet {
 		try {
 			msg = bi.addBook(b1);
 			if (msg == 1) {
-				out.print("Book Successfully Added");
+				out.print("Books Successfully Added");
 			} else {
-				out.print("Book Not Added");
+				out.print("Books Not Added");
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			out.print("Book Not Added");
+			out.print("Books Not Added");
 
 		}
 	}

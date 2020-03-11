@@ -2,30 +2,32 @@ package com.chainsys.bookshelf.dao;
 
 import java.util.List;
 
+import com.chainsys.bookshelf.exception.DBException;
+
 //import org.jdbi.v3.sqlobject.customizer.BindBean;
 //import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
-import com.chainsys.bookshelf.model.Books;
+import com.chainsys.bookshelf.model.Book;
 
 public interface BooksDAO {
-	List<Books> extractAuthorSpecificBooks(String bookAuthor) throws Exception;
+	List<Book> findByAuthor(String bookAuthor) throws DBException;
 
-	List<Books> extractTypeSpecificBooks(String bookType) throws Exception;
+	List<Book> findByBookType(String bookType) throws DBException;
 
-	List<Books> extractLanguageSpecificBooks(String bookLanguage) throws Exception;
+	List<Book> findByLanguage(String bookLanguage) throws DBException;
 
-	List<Books> extractHighlyRatedBooks() throws Exception;
+	List<Book> findHighlyRatedBooks() throws DBException;
 
-	List<Books> viewAllBooks() throws Exception;
+	List<Book> viewAllBooks() throws DBException;
 
-	List<Books> extractTodaysSpecial() throws Exception;
+	List<Book> findTodaysSpecial() throws DBException;
 
-	List<Books> extractRelatedBooks(String bookName) throws Exception;
+	List<Book> findRelatedBookName(String bookName) throws DBException;
 
-	public int addBook(Books ab) throws Exception;
+	public int addBook(Book ab) throws DBException;
 
-	public void updateBookLanguage(Books ab) throws Exception;
+	public void updateBookLanguage(Book ab) throws DBException;
 
-	public int deleteBook(Books ab) throws Exception;
+	public int deleteBook(Book ab) throws DBException;
 
 }

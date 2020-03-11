@@ -1,33 +1,35 @@
 package com.chainsys.bookshelf.implementations;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.LoggerFactory;
 
 import com.chainsys.bookshelf.controller.IndexController;
 import com.chainsys.bookshelf.dao.BooksDAO;
-import com.chainsys.bookshelf.db.DbConnection;
+import com.chainsys.bookshelf.util.DbConnection;
 import com.chainsys.bookshelf.exception.DBException;
 import com.chainsys.bookshelf.exception.ErrorConstant;
-import com.chainsys.bookshelf.model.Books;
+import com.chainsys.bookshelf.model.Book;
 
 public class BooksDAOImpl implements BooksDAO {
 	private static final org.slf4j.Logger log = LoggerFactory.getLogger(IndexController.class);
 
-	public List<Books> extractAuthorSpecificBooks(String bookAuthor) throws Exception {
+	public List<Book> findByAuthor(String bookAuthor) throws DBException {
 
 		String query = "select book_name,book_version,book_author,book_language,book_rating,book_type,book_publisher,book_published_date,booklink,imglink from books where book_author=lower(?)";
 
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 			pst.setString(1, bookAuthor);
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
-					Books b = new Books();
+					Book b = new Book();
 					b.setBookName(rs.getString(1));
 					b.setBookVersion(rs.getInt(2));
 					b.setBookAuthor(rs.getString(3));
@@ -35,7 +37,7 @@ public class BooksDAOImpl implements BooksDAO {
 					b.setBookRating(rs.getInt(5));
 					b.setBookType(rs.getString(6));
 					b.setBookPublisher(rs.getString(7));
-					b.setBookPublishedDate(rs.getDate(8));
+					b.setBookPublishedDate(LocalDate.parse(rs.getDate(8)+""));
 					b.setBookLink(rs.getString(9));
 					b.setImgLink(rs.getString(10));
 
@@ -52,11 +54,11 @@ public class BooksDAOImpl implements BooksDAO {
 
 	}
 
-	public List<Books> extractTypeSpecificBooks(String bookType) throws Exception {
+	public List<Book> findByBookType(String bookType) throws DBException {
 
 		String query = "select book_name,book_version,book_author,book_language,book_rating,book_type,book_publisher,book_published_date,booklink,imglink from books where book_Type=?";
 
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 
@@ -65,7 +67,7 @@ public class BooksDAOImpl implements BooksDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
-					Books b = new Books();
+					Book b = new Book();
 					b.setBookName(rs.getString(1));
 					b.setBookVersion(rs.getInt(2));
 					b.setBookAuthor(rs.getString(3));
@@ -73,7 +75,7 @@ public class BooksDAOImpl implements BooksDAO {
 					b.setBookRating(rs.getInt(5));
 					b.setBookType(rs.getString(6));
 					b.setBookPublisher(rs.getString(7));
-					b.setBookPublishedDate(rs.getDate(8));
+					b.setBookPublishedDate(LocalDate.parse(rs.getDate(8)+""));
 					b.setBookLink(rs.getString(9));
 					b.setImgLink(rs.getString(10));
 
@@ -89,10 +91,10 @@ public class BooksDAOImpl implements BooksDAO {
 
 	}
 
-	public List<Books> extractLanguageSpecificBooks(String bookLanguage) throws Exception {
+	public List<Book> findByLanguage(String bookLanguage) throws DBException {
 
 		String query = "select book_name,book_version,book_author,book_language,book_rating,book_type,book_publisher,book_published_date,booklink,imglink from books where book_Language=?";
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 
 			pst.setString(1, bookLanguage);
@@ -100,7 +102,7 @@ public class BooksDAOImpl implements BooksDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
-					Books b = new Books();
+					Book b = new Book();
 					b.setBookName(rs.getString(1));
 					b.setBookVersion(rs.getInt(2));
 					b.setBookAuthor(rs.getString(3));
@@ -108,7 +110,7 @@ public class BooksDAOImpl implements BooksDAO {
 					b.setBookRating(rs.getInt(5));
 					b.setBookType(rs.getString(6));
 					b.setBookPublisher(rs.getString(7));
-					b.setBookPublishedDate(rs.getDate(8));
+					b.setBookPublishedDate(LocalDate.parse(rs.getDate(8)+""));
 					b.setBookLink(rs.getString(9));
 					b.setImgLink(rs.getString(10));
 
@@ -124,10 +126,10 @@ public class BooksDAOImpl implements BooksDAO {
 		return (l);
 	}
 
-	public List<Books> extractHighlyRatedBooks() throws Exception {
+	public List<Book> findHighlyRatedBooks() throws DBException {
 
 		String query = "select book_name,book_version,book_author,book_language,book_rating,book_type,book_publisher,book_published_date,booklink,imglink from books where book_rating>=4";
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 			int rows = pst.executeUpdate(query);
 			log.debug("Most Popular Books :" + rows);
@@ -135,7 +137,7 @@ public class BooksDAOImpl implements BooksDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
-					Books b = new Books();
+					Book b = new Book();
 					b.setBookName(rs.getString(1));
 					b.setBookVersion(rs.getInt(2));
 					b.setBookAuthor(rs.getString(3));
@@ -143,7 +145,7 @@ public class BooksDAOImpl implements BooksDAO {
 					b.setBookRating(rs.getInt(5));
 					b.setBookType(rs.getString(6));
 					b.setBookPublisher(rs.getString(7));
-					b.setBookPublishedDate(rs.getDate(8));
+					b.setBookPublishedDate(LocalDate.parse(rs.getDate(8)+""));
 					b.setBookLink(rs.getString(9));
 					b.setImgLink(rs.getString(10));
 
@@ -160,10 +162,10 @@ public class BooksDAOImpl implements BooksDAO {
 		return (l);
 	}
 
-	public List<Books> extractTodaysSpecial() throws Exception {
+	public List<Book> findTodaysSpecial() throws DBException {
 
 		String query = "select book_name,book_version,book_Author,book_language,book_rating,book_type,book_publisher,book_published_date,booklink,imglink from books where trunc(book_uploaded_on)=trunc(sysdate)";
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 
@@ -173,7 +175,7 @@ public class BooksDAOImpl implements BooksDAO {
 			try (ResultSet rs = pst.executeQuery();) {
 
 				while (rs.next()) {
-					Books b = new Books();
+					Book b = new Book();
 					b.setBookName(rs.getString(1));
 					b.setBookVersion(rs.getInt(2));
 					b.setBookAuthor(rs.getString(3));
@@ -181,7 +183,7 @@ public class BooksDAOImpl implements BooksDAO {
 					b.setBookRating(rs.getInt(5));
 					b.setBookType(rs.getString(6));
 					b.setBookPublisher(rs.getString(7));
-					b.setBookPublishedDate(rs.getDate(8));
+					b.setBookPublishedDate(LocalDate.parse(rs.getDate(8)+""));
 					b.setBookLink(rs.getString(9));
 					b.setImgLink(rs.getString(10));
 
@@ -196,10 +198,10 @@ public class BooksDAOImpl implements BooksDAO {
 		return (l);
 	}
 
-	public List<Books> extractRelatedBooks(String bookName) throws Exception {
+	public List<Book> findRelatedBookName(String bookName) throws DBException {
 
 		String query = "select book_name,book_version,book_Author,book_language,book_rating,book_type,book_publisher,book_published_date,booklink,imglink from books where book_name like ?";
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 			pst.setString(1, "%" + bookName + "%");
@@ -207,7 +209,7 @@ public class BooksDAOImpl implements BooksDAO {
 			try (ResultSet rs = pst.executeQuery();) {
 
 				while (rs.next()) {
-					Books b = new Books();
+					Book b = new Book();
 					b.setBookName(rs.getString(1));
 					b.setBookVersion(rs.getInt(2));
 					b.setBookAuthor(rs.getString(3));
@@ -215,7 +217,7 @@ public class BooksDAOImpl implements BooksDAO {
 					b.setBookRating(rs.getInt(5));
 					b.setBookType(rs.getString(6));
 					b.setBookPublisher(rs.getString(7));
-					b.setBookPublishedDate(rs.getDate(8));
+					b.setBookPublishedDate(LocalDate.parse(rs.getDate(8)+""));
 					b.setBookLink(rs.getString(9));
 					b.setImgLink(rs.getString(10));
 
@@ -231,7 +233,7 @@ public class BooksDAOImpl implements BooksDAO {
 		return (l);
 	}
 
-	public int addBook(Books ab) throws Exception {
+	public int addBook(Book ab) throws DBException {
 		String query = "insert into books(book_id,book_name,book_version,book_author,book_language,book_type,book_publisher,book_published_date,booklink,imglink)values(BOOK_ID_SQC.nextval,lower(?),?,lower(?),?,?,?,?,?,?)";
 		int rows;
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query);) {
@@ -242,7 +244,7 @@ public class BooksDAOImpl implements BooksDAO {
 			pst.setString(4, ab.getBookLanguage());
 			pst.setString(5, ab.getBookType());
 			pst.setString(6, ab.getBookPublisher());
-			pst.setDate(7, ab.getBookPublishedDate());
+			pst.setDate(7,Date.valueOf(ab.getBookPublishedDate()));
 			pst.setString(8, ab.getBookLink());
 			pst.setString(9, ab.getImgLink());
 			
@@ -265,7 +267,7 @@ public class BooksDAOImpl implements BooksDAO {
 
 	}
 
-	public void updateBookLanguage(Books ab) throws Exception {
+	public void updateBookLanguage(Book ab) throws DBException {
 		String query = "update books set book_language=? where book_name=?";
 
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
@@ -283,7 +285,7 @@ public class BooksDAOImpl implements BooksDAO {
 
 	}
 
-	public int deleteBook(Books ab) throws Exception {
+	public int deleteBook(Book ab) throws DBException {
 		String sql = "delete from users where book_id=?";
 		String query = "delete from books where book_id=?";
 		int rows = 0;
@@ -311,9 +313,9 @@ public class BooksDAOImpl implements BooksDAO {
 
 	}
 
-	public List<Books> viewAllBooks() throws Exception {
+	public List<Book> viewAllBooks() throws DBException {
 		String query = "select book_name,book_version,book_author,book_language,book_rating,book_type,book_publisher,book_published_date,booklink,imglink,book_id from books ";
-		List<Books> l = new ArrayList<Books>();
+		List<Book> l = new ArrayList<Book>();
 		try (Connection con = DbConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 			int rows = pst.executeUpdate(query);
 			log.debug("Total Books :" + rows);
@@ -321,7 +323,7 @@ public class BooksDAOImpl implements BooksDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
-					Books b = new Books();
+					Book b = new Book();
 					b.setBookName(rs.getString(1));
 					b.setBookVersion(rs.getInt(2));
 					b.setBookAuthor(rs.getString(3));
@@ -329,7 +331,7 @@ public class BooksDAOImpl implements BooksDAO {
 					b.setBookRating(rs.getInt(5));
 					b.setBookType(rs.getString(6));
 					b.setBookPublisher(rs.getString(7));
-					b.setBookPublishedDate(rs.getDate(8));
+					b.setBookPublishedDate(LocalDate.parse(rs.getDate(8)+""));
 					b.setBookLink(rs.getString(9));
 					b.setImgLink(rs.getString(10));
 					b.setBookId(rs.getInt(11));

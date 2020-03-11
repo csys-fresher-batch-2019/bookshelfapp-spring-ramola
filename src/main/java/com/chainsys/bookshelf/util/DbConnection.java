@@ -1,10 +1,13 @@
-package com.chainsys.bookshelf.db;
+package com.chainsys.bookshelf.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import com.chainsys.bookshelf.exception.DBException;
 
 public class DbConnection {
-	public static Connection getConnection() throws Exception {
+	public static Connection getConnection() throws DBException, SQLException, ClassNotFoundException {
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");

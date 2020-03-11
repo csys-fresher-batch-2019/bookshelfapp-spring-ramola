@@ -1,6 +1,6 @@
 package com.chainsys.bookshelf.model;
 
-public class Login {
+public class User {
 
 	private int loginNo;
 	private String userName;
