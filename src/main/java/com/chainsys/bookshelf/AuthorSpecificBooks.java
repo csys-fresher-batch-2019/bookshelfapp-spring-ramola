@@ -29,7 +29,6 @@ public class AuthorSpecificBooks extends HttpServlet {
 			l = bl.findByAuthor(bookAuthor);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		// request.setAttribute("Book", l);

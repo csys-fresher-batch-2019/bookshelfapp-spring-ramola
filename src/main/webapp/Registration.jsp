@@ -62,7 +62,7 @@ img {
 			<br />
 			<center>
 				<h2>
-					<u><i>Registration</i></u>
+					<u><em>Registration</em></u>
 				</h2>
 				<form action="registration">
 					Enter Name : <input type="text" name="t1" pattern="^[0-9a-zA-Z]+$"

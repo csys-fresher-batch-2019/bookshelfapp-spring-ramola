@@ -22,7 +22,7 @@ public class HighlyRatedBooks extends HttpServlet {
 			throws ServletException, IOException {
 
 		BooksDAOImpl bl = new BooksDAOImpl();
-		// PrintWriter out=response.getWriter();
+		
 		List<Book> l = new ArrayList<Book>();
 		try {
 			l = bl.findHighlyRatedBooks();

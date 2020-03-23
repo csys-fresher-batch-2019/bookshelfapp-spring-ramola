@@ -49,8 +49,8 @@
 						width="255"></img>
 					<div class='container'>
 						<h5>
-							<b> <%=b.getBookName()%>
-							</b>
+							<strong> <%=b.getBookName()%>
+							</strong>
 						</h5>
 						<p>
 							Author :

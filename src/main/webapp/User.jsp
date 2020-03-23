@@ -18,8 +18,7 @@
 </head>
 <style>
 .left {
-	float: left;
-	padding-left: 60px;
+		padding-left: 60px;
 	padding-right: 80px;
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -28,10 +27,10 @@
 <body>
 
 
-	<h4>
+	<h4></br>
 
-		<ul class="nav navbar-nav">
-			<li class="active">
+		<ul>
+			
 			<li><a href="AuthorSpecificBooks.jsp">View Author Specific
 					Books</a></li>
 			<li><a href="LanguageSpecificBooks.jsp">View Language
@@ -56,10 +55,15 @@
 			l1.add("Fantacy");
 			l1.add("Mythology");
 			l1.add("Poetry");
+			l1.add("Technical");
+			l1.add("Autobiographies");
+			l1.add("Literature");
 
 			HttpSession sess = request.getSession(false);
 			String prefer = (String) sess.getAttribute("preference");
-
+%><font face="DejaVu Sans">
+<h1>&nbsp;&nbsp;&nbsp;<%=prefer %></h1>
+<% 
 			BooksDAOImpl bl = new BooksDAOImpl();
 			List<Book> l = new ArrayList<Book>();
 
@@ -67,16 +71,18 @@
 			for (Book b : l) {
 				
 		%>
+		
 		<div class='left'>
+		</br></br>
 			<div class="card-desk">
 				<div class="card bg-white"
-					style="width: 16rem; height: 33rem; color: black;">
+					style="width: 16rem; height: 36rem; color: black;">
 					<img src="assets/images/<%=b.getImgLink()%>" height="320"
 						width="255"></img>
 					<div class='container'>
 						<h5>
-							<b> <%=b.getBookName()%>
-							</b>
+							<strong> <%=b.getBookName()%>
+							</strong>
 						</h5>
 						<p>
 							Author :
@@ -97,23 +103,29 @@
 			}
 		%>
 	</div>
-	<div class='row'>
+	
 		<%
 			for (String pre : l1) {
+				
 				if (!pre.equals(prefer)) {
+					%>
+					
+					</br><h1>&nbsp;&nbsp;&nbsp;<%=pre %></h1></br>
+					<div class='row'><% 
 					l = bl.findByBookType(pre);
 					for (Book b : l) {
 		%>
-		<div class='left'>
+		</br></br>
+		<div class="left">
 			<div class="card-desk">
 				<div class="card bg-white"
-					style="width: 16rem; height: 33rem; color: black;">
+					style="width: 16rem; height: 36rem; color: black;">
 					<img src="assets/images/<%=b.getImgLink()%>" height="320"
 						width="255"></img>
 					<div class='container'>
 						<h5>
-							<b> <%=b.getBookName()%>
-							</b>
+							<strong> <%=b.getBookName()%>
+							</strong>
 						</h5>
 						<p>
 							Author :
@@ -126,13 +138,16 @@
 						</p>
 					</div>
 				</div>
-			</div>
-		</div>
+			</div></div>
 
 
 		<%
 			}
+			 %></div><%
+					
 				}
+				%><%
+				
 			}
 		%>
 	

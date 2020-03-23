@@ -47,7 +47,7 @@ public class login extends HttpServlet {
 				l = ld.getUserDetails(l1.geteMail());
 				session.setAttribute("preference", l.getPreferenceType());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 			out.println("alert('welcome;')");

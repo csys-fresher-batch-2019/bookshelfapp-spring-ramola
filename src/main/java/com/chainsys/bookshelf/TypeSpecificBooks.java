@@ -30,7 +30,7 @@ public class TypeSpecificBooks extends HttpServlet {
 			l = bl.findByBookType(bookType);
 
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}
 
